@@ -1,5 +1,10 @@
 evalRun = function(nIter, param){
-  
+  # to disable in-function printed message for smcfcs
+  quiet = function(x) { 
+    sink(tempfile()) 
+    on.exit(sink()) 
+    invisible(force(x)) 
+  }
   nModel = 5
   cindex = CS = IBS = MCC = matrix(NA, nModel, nIter)
   
