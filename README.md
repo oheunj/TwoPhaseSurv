@@ -32,7 +32,7 @@ library(caret)
 library(DescTools)
 library(mice)
 library(smcfcs)
-library(survcomp) # this package is now available from Bioconductor only
+library(survcomp)
 ```
 
 # License
