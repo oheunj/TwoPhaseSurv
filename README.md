@@ -11,17 +11,28 @@ R is a statistical software program, and RStudio is a user interface for R. We r
 ## Requirements
 You may need to install the following dependencies first:
 ```{r}
-library(rpart)
+library(MASS)
 library(survival)
-library(rpart.plot)
 library(survminer)
-library(gtsummary)
-library(randomForestSRC)
-library(dplyr)
-library(tidyverse)
-library(Hmisc)
-library(pec)
 library(knitr)
+library(partykit)
+library(MatchIt)
+library(expss)
+library(glmnet)
+library(fastDummies)
+library(randomForestSRC)
+library(ipred)
+library(matrixStats)
+library(survAUC)
+library(SurvMetrics)
+library(pec)
+library(RANN)
+library(Hmisc)
+library(caret)
+library(DescTools)
+library(mice)
+library(smcfcs)
+library(survcomp) # this package is now available from Bioconductor only
 ```
 
 # License
