@@ -13,26 +13,12 @@ You may need to install the following dependencies first:
 ```{r}
 library(MASS)
 library(survival)
-library(survminer)
-library(knitr)
-library(partykit)
-library(MatchIt)
-library(expss)
 library(glmnet)
-library(fastDummies)
-library(randomForestSRC)
-library(ipred)
-library(matrixStats)
-library(survAUC)
-library(SurvMetrics)
-library(pec)
-library(RANN)
-library(Hmisc)
-library(caret)
-library(DescTools)
 library(mice)
 library(smcfcs)
 library(survcomp)
+library(DescTools)
+library(Hmisc)
 ```
 
 # License
