@@ -10,7 +10,7 @@ simul_dat_fun = function(case, setting, n, p, alpha, beta, r, lambda, rho, c0){
     prob_V[which(U[,1]< -0.5)] = 0.3
     prob_V[which(U[,1]>= -0.5 & U[,1]< 1)] = 0.5
     prob_V[which(U[,1]>= 1)] = 0.2
-    V = ifelse(runif(N) <= prob_V, 1, 0)
+    V = ifelse(runif(n) <= prob_V, 1, 0)
     
   }else if(case==2){
     
@@ -24,7 +24,7 @@ simul_dat_fun = function(case, setting, n, p, alpha, beta, r, lambda, rho, c0){
     prob_V[which(U[,1]< -0.5)] = 0.3
     prob_V[which(U[,1]>= -0.5 & U[,1]< 1)] = 0.5
     prob_V[which(U[,1]>= 1)] = 0.2
-    V1 = ifelse(runif(N) <= prob_V, 1, 0)
+    V1 = ifelse(runif(n) <= prob_V, 1, 0)
     V2 = rnorm(0.4*abs(U[,1])-0.1, 0.2^2)
     V = cbind(V1, V2)
     colnames(V) = NULL
