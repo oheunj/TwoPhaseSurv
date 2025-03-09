@@ -31,7 +31,7 @@ library(knitr)
 source("simul_dat_fun")
 source("run_methods_eval_fun")
 
-# run the 
+# run the simulations
 res = run_methods_eval_fun(nIter = nIter, case = case, setting = setting, n = n, p = p, 
                            alpha = alpha, beta = beta, r = r, lambda = lambda, rho = rho, c0 = c0)
 
