@@ -14,12 +14,6 @@ run_methods_eval_fun = function(nIter = nIter, case = case, setting = setting, n
     set.seed(jj)
     train = simul_dat_fun(case = case, setting = setting, n = n, p = p, alpha = alpha, 
                           beta = beta, r = r, lambda = lambda, rho = rho, c0 = c0)
-    while(sum(train$targdat$status) < 7){ # avoid an extreme case of accidentally too many censored observations left in target samples
-      rdnum = sample(1:1000,1)
-      set.seed(sample(jj*rdnum))
-      train = simul_dat_fun(case = case, setting = setting, n = n, p = p, alpha = alpha,
-                            beta = beta, r = r, lambda = lambda, rho = rho, c0 = c0)
-    }
     test = simul_dat_fun(case = case, setting = setting, n = n, p = p, alpha = alpha, 
                          beta = beta, r = r, lambda = lambda, rho = rho, c0 = c0)
     
