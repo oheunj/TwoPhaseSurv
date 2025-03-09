@@ -24,8 +24,8 @@ library(knitr)
 
 Additionally, you need to save the following R codes from the 'functions' folder to your working directory and import these files:
 ```{r}
-source("prune_1se_fun")
-source("pecRpart_fun")
+source("run_methods_eval_fun")
+source("simul_dat_fun")
 ```
 
 
