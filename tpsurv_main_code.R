@@ -28,11 +28,12 @@ library(knitr)
 # - c0: parameter for censoring times 
 
 # import several R functions (note: save these files from the folder 'functions' to your working directory)
-source("cp.select_fun")
-source("pecRpart_fun")
+source("simul_dat_fun")
+source("run_methods_eval_fun")
 
 # run the 
-res = evalRun(nIter = nIter, case = case, setting = setting, n = n, p = p, alpha = alpha, beta = beta, r = r, lambda = lambda, rho = rho, c0 = c0)
+res = run_methods_eval_fun(nIter = nIter, case = case, setting = setting, n = n, p = p, 
+                           alpha = alpha, beta = beta, r = r, lambda = lambda, rho = rho, c0 = c0)
 
 modelnames = c("CCA", "NI", "MI-Wood", "MI-Bartlett", "EG")
 
