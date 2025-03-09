@@ -1,4 +1,5 @@
-run_methods_eval_fun = function(nIter, param){
+run_methods_eval_fun = function(nIter = nIter, case = case, setting = setting, n = n, p = p, 
+                                alpha = alpha, beta = beta, r = r, lambda = lambda, rho = rho, c0 = c0){
   # to disable in-function printed message for smcfcs
   quiet = function(x) { 
     sink(tempfile()) 
@@ -11,16 +12,16 @@ run_methods_eval_fun = function(nIter, param){
   for(jj in 1:nIter){
     
     set.seed(jj)
-    train = simulDat(case = param$case, setting = param$setting, N = param$N, p = param$p, alpha = param$alpha, 
-                     beta = param$beta, r = param$r, lambda = param$lambda, rho = param$rho, c0 = param$c0)
+    train = simulDat(case = case, setting = setting, N = N, p = p, alpha = alpha, 
+                     beta = beta, r = r, lambda = lambda, rho = rho, c0 = c0)
     while(sum(train$targdat$status) < 7){ # avoid an extreme case of accidentally too many censored observations left in target samples
       rdnum = sample(1:1000,1)
       set.seed(sample(jj*rdnum))
-      train = simulDat(case=param$case, setting=param$setting, N=param$N, p=param$p, alpha=param$alpha,
-                       beta=param$beta, r=param$r, lambda=param$lambda, rho=param$rho, c0=param$c0)
+      train = simulDat(case = case, setting = setting, N = N, p = p, alpha = alpha, 
+                       beta = beta, r = r, lambda = lambda, rho = rho, c0 = c0)
     }
-    test  = simulDat(case = param$case, setting = param$setting, N = param$N, p = param$p, alpha = param$alpha, 
-                     beta = param$beta, r = param$r, lambda = param$lambda, rho = param$rho, c0 = param$c0)
+    test = simulDat(case = case, setting = setting, N = N, p = p, alpha = alpha, 
+                    beta = beta, r = r, lambda = lambda, rho = rho, c0 = c0)
     
     # step 1A for expert-guided
     y = cbind(time = train$fulldat$time, status = train$fulldat$status)
@@ -43,7 +44,7 @@ run_methods_eval_fun = function(nIter, param){
     # expert-guided
     m.eg = coxph(Surv(y) ~ X.eg)
     coef.m.eg = coef(m.eg)
-    if(sum(coef(premodel, s = "lambda.1se")==0)==param$p){ coef.m.eg[1] = 0 }
+    if(sum(coef(premodel, s = "lambda.1se")==0)==p){ coef.m.eg[1] = 0 }
     
     # complete-case analysis
     enet.ini = cv.glmnet(X, y, family = "cox", nfolds = 5, type.measure = "deviance", alpha = 0.5)
@@ -53,11 +54,11 @@ run_methods_eval_fun = function(nIter, param){
     
     # native imputation (mean)
     y = cbind(time = train$fulldat$time, status = train$fulldat$status)
-    if(param$case==1){
+    if(case==1){
       imputed.V.ni = as.numeric(with(train$fulldat, Hmisc::impute(V, function(x) Mode(x, na.rm=T)[1])))
-    }else if(param$case==2){
+    }else if(case==2){
       imputed.V.ni = as.numeric(with(train$fulldat, Hmisc::impute(V, function(x) mean(x, na.rm=T)[1])))
-    }else if(param$case==3){
+    }else if(case==3){
       imputed.V.ni1 = as.numeric(with(train$fulldat, Hmisc::impute(V[,1], function(x) Mode(x, na.rm=T)[1])))
       imputed.V.ni2 = as.numeric(with(train$fulldat, Hmisc::impute(V[,2], function(x) mean(x, na.rm=T)[1])))
       imputed.V.ni  = cbind(imputed.V.ni1, imputed.V.ni2)
@@ -74,11 +75,11 @@ run_methods_eval_fun = function(nIter, param){
     testy.mi = cbind(time = test$fulldat$time, status = test$fulldat$status)
     testX = data.matrix(cbind(test$targdat$U, test$targdat$V))
     testX.eg = data.matrix(cbind(test$targdat$zeta, test$targdat$V))
-    if(param$case==1){
+    if(case==1){
       imputed.V.ni = as.numeric(with(test$fulldat, Hmisc::impute(V, function(x) Mode(x, na.rm=T)[1])))
-    }else if(param$case==2){
+    }else if(case==2){
       imputed.V.ni = as.numeric(with(test$fulldat, Hmisc::impute(V, function(x) mean(x, na.rm=T)[1])))
-    }else if(param$case==3){
+    }else if(case==3){
       imputed.V.ni1 = as.numeric(with(test$fulldat, Hmisc::impute(V[,1], function(x) Mode(x, na.rm=T)[1])))
       imputed.V.ni2 = as.numeric(with(test$fulldat, Hmisc::impute(V[,2], function(x) mean(x, na.rm=T)[1])))
       imputed.V.ni = cbind(imputed.V.ni1, imputed.V.ni2)
@@ -123,20 +124,20 @@ run_methods_eval_fun = function(nIter, param){
     # step 1 for imputing data using smcfcs()
     datforMI = data.frame(time = train$fulldat$time, status = train$fulldat$status, U = train$fulldat$U, V = train$fulldat$V)
     imputeindex = rep("", ncol(datforMI))
-    if(param$case==1){
+    if(case==1){
       imputeindex[which(colSums(is.na(datforMI))>0)] = "brlogreg"
-    }else if(param$case==2){
+    }else if(case==2){
       imputeindex[which(colSums(is.na(datforMI))>0)] = "norm"
-    }else if(param$case==3){
+    }else if(case==3){
       imputeindex[which(colSums(is.na(datforMI))>0)][1] = "brlogreg"
       imputeindex[which(colSums(is.na(datforMI))>0)][2] = "norm"
     }
     tryCatch({
-      if(param$case %in% c(1:2)){
+      if(case %in% c(1:2)){
         uptMI = quiet(smcfcs(datforMI, smtype = "coxph", 
                              smformula = paste0("Surv(time,status)~", paste(paste0("U.",1:p), collapse = "+"), "+V"),
                              method=imputeindex, m = 5)) 
-      }else if(param$case==3){
+      }else if(case==3){
         uptMI = quiet(smcfcs(datforMI, smtype = "coxph", 
                              smformula = paste0("Surv(time,status)~", paste(paste0("U.",1:p), collapse = "+"), "+V.1+V.2"),
                              method=imputeindex, m = 5))
@@ -172,7 +173,7 @@ run_methods_eval_fun = function(nIter, param){
     }, error=function(e){})
     
     # variable selection performance
-    truecoef = c(param$beta, param$alpha)
+    truecoef = c(beta, alpha)
     coefmat = matrix(0, length(truecoef), nModel)
     coefmat[,1] = as.numeric(coef(m.cca, s = "lambda.1se"))
     coefmat[,2] = as.numeric(coef(m.ni, s = "lambda.1se"))
