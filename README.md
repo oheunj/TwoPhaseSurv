@@ -19,6 +19,7 @@ library(smcfcs)
 library(survcomp)
 library(DescTools)
 library(Hmisc)
+library(knitr)
 ```
 
 Additionally, you need to save the following R codes from the 'functions' folder to your working directory and import these files:
