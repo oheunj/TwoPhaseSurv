@@ -21,14 +21,11 @@ library(DescTools)
 library(Hmisc)
 library(knitr)
 ```
-
 Additionally, you need to save the following R codes from the 'functions' folder to your working directory and import these files:
 ```{r}
 source("run_methods_eval_fun")
 source("simul_dat_fun")
 ```
-
-
 # License
 ```{r}
 Licensed under the GNU General Public License v3.0 (GPL-3.0);
