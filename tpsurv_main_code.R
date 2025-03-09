@@ -1,3 +1,9 @@
+# the file is licensed under the GNU General Public License v3.0 (GPL-3.0)
+
+# you need to set your own working directory
+setwd("Specify-Your-Working-Directory")
+
+# load packages
 library(MASS)
 library(glmnet)
 library(survival)
@@ -8,27 +14,25 @@ library(survcomp)
 library(Hmisc)
 library(knitr)
 
-# case 1 a binary missing covariate
-# case 2 a continuous missing covariate
-# case 3 two missing covariates
+# parameters
+# - nIter: # of Monte Carlo simulations
+# - case: 1 (a binary missing covariate); 2 (a continuous missing covariate); 3 (two missing covariates)
+# - setting: 1 (MCAR); 2 (MAR); 3 (MARviol)
+# - n: # of observations in two-phase data (n >> n')
+# - p: dimension of U
+# - alpha: coefficient(s) of V
+# - beta: coefficients of U
+# - r: ratio of two-phase data (n'/n)
+# - lambda: shape parameter
+# - rho: scale parameter
+# - c0: parameter for censoring times 
 
-# setting 1 MCAR
-# setting 2 MAR
-# setting 3 MARviol
+# import several R functions (note: save these files from the folder 'functions' to your working directory)
+source("cp.select_fun")
+source("pecRpart_fun")
 
-nIter = 100
-param = list(case = 1, 
-             setting = 1, 
-             N = 150, 
-             p = 10, 
-             alpha = 1.25, 
-             beta = c(rep(0.5, p/2), rep(0, p/2)),
-             r = 0.3,
-             lambda = 1,
-             rho = 1,
-             c0 = 10)
-
-res = evalRun(nIter = nIter, param = param)
+# run the 
+res = evalRun(nIter = nIter, case = case, setting = setting, n = n, p = p, alpha = alpha, beta = beta, r = r, lambda = lambda, rho = rho, c0 = c0)
 
 modelnames = c("CCA", "NI", "MI-Wood", "MI-Bartlett", "EG")
 
