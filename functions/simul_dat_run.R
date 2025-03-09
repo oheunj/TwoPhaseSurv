@@ -40,7 +40,7 @@ simul_dat_fun = function(case, setting, n, p, alpha, beta, r, lambda, rho, c0){
   }
   
   # follow-up times and event indicators
-  Tlat = rweibull(N, shape=rho, scale=lambda_prime)
+  Tlat = rweibull(n, shape=rho, scale=lambda_prime)
   C = rexp(n=n, rate=c0)
   time = pmin(Tlat, C)
   status = as.numeric(Tlat <= C)
