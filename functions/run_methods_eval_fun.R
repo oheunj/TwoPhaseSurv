@@ -152,8 +152,8 @@ run_methods_eval_fun = function(nIter = nIter, case = case, setting = setting, n
       mi_bart = lapply(1:M, function(i) {
         X_imp = data.matrix(complete(imp, action = i)[,selected_bart])
         if(length(selected_bart)>1){
-          enet.ini    = cv.glmnet(X_imp, y, family = "cox", nfolds = 5, type.measure = "deviance", alpha = 0.5)
-          abs.enet    = 1/(abs(coef(enet.ini)) + 1/nrow(X_imp))
+          enet.ini = cv.glmnet(X_imp, y, family = "cox", nfolds = 5, type.measure = "deviance", alpha = 0.5)
+          abs.enet = 1/(abs(coef(enet.ini)) + 1/nrow(X_imp))
           w = abs.enet
           finmodel = cv.glmnet(X_imp, y, family = "cox", nfolds = 5, type.measure = "deviance", penalty.factor = w)
           return(coef(finmodel, s = "lambda.1se"))
