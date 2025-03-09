@@ -48,14 +48,14 @@ simul_dat_fun = function(case, setting, n, p, alpha, beta, r, lambda, rho, c0){
   if(setting==1){
     
     prob_missing = 1-r
-    missing_mask = which(runif(N) < prob_missing)
+    missing_mask = which(runif(n) < prob_missing)
     
   }else if(setting==2){
     
     prob_missing = rep(NA, n)
     prob_missing[which(U[,1]> qnorm(r/3))]  = (1-r)/pnorm(-qnorm(r/3))
     prob_missing[which(U[,1]<= qnorm(r/3))] = 0
-    missing_mask = which(runif(N) < prob_missing)
+    missing_mask = which(runif(n) < prob_missing)
     
   }else if(setting==3){
     
@@ -65,7 +65,7 @@ simul_dat_fun = function(case, setting, n, p, alpha, beta, r, lambda, rho, c0){
       as.numeric(V[which(U[,1]> qnorm(r/3))] <= 0)*0.1
     prob_missing[which(U[,1]<= qnorm(r/3))] = 
       as.numeric(V[which(U[,1]<= qnorm(r/3))] <= 0)*0.1
-    missing_mask = which(runif(N) < prob_missing)
+    missing_mask = which(runif(n) < prob_missing)
     
   }
   
