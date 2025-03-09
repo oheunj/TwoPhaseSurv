@@ -1,4 +1,4 @@
-evalsim_fun = function(nIter, param){
+run_sim_fun = function(nIter, param){
   # to disable in-function printed message for smcfcs
   quiet = function(x) { 
     sink(tempfile()) 
