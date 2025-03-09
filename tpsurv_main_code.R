@@ -18,7 +18,7 @@ library(knitr)
 # - nIter: # of Monte Carlo simulations
 # - case: 1 (a binary missing covariate); 2 (a continuous missing covariate); 3 (two missing covariates)
 # - setting: 1 (MCAR); 2 (MAR); 3 (MARviol)
-# - n: # of total observations in two-phase data
+# - n: sample size
 # - p: dimension of U
 # - alpha: coefficient(s) of V
 # - beta: coefficients of U
