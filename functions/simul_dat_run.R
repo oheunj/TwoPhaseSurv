@@ -1,4 +1,4 @@
-simulDat = function(case, setting, N, p, alpha, beta, r, lambda, rho, c0){
+simul_dat_fun = function(case, setting, N, p, alpha, beta, r, lambda, rho, c0){
   
   # p-dimensional standard normal random vectors
   U = mvrnorm(N, mu=rep(0, times=p), Sigma = diag(rep(1, p)))
