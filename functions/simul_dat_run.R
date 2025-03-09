@@ -1,7 +1,7 @@
 simul_dat_fun = function(case, setting, n, p, alpha, beta, r, lambda, rho, c0){
   
   # p-dimensional standard normal random vectors
-  U = mvrnorm(N, mu=rep(0, times=p), Sigma = diag(rep(1, p)))
+  U = mvrnorm(n, mu=rep(0, times=p), Sigma = diag(rep(1, p)))
   
   if(case==1){
     
