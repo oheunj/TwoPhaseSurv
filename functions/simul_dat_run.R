@@ -1,4 +1,4 @@
-simul_dat_fun = function(case, setting, N, p, alpha, beta, r, lambda, rho, c0){
+simul_dat_fun = function(case, setting, n, p, alpha, beta, r, lambda, rho, c0){
   
   # p-dimensional standard normal random vectors
   U = mvrnorm(N, mu=rep(0, times=p), Sigma = diag(rep(1, p)))
@@ -6,7 +6,7 @@ simul_dat_fun = function(case, setting, N, p, alpha, beta, r, lambda, rho, c0){
   if(case==1){
     
     # a binary missing covariate
-    prob_V = rep(NA, N)
+    prob_V = rep(NA, n)
     prob_V[which(U[,1]< -0.5)] = 0.3
     prob_V[which(U[,1]>= -0.5 & U[,1]< 1)] = 0.5
     prob_V[which(U[,1]>= 1)] = 0.2
@@ -15,12 +15,12 @@ simul_dat_fun = function(case, setting, N, p, alpha, beta, r, lambda, rho, c0){
   }else if(case==2){
     
     # a continuous missing covariate
-    V = rnorm(N, 0.4*abs(U[,1])-0.1, 0.2^2)
+    V = rnorm(n, 0.4*abs(U[,1])-0.1, 0.2^2)
     
   }else if(case==3){
     
     # two missing covariates
-    prob_V = rep(NA, N)
+    prob_V = rep(NA, n)
     prob_V[which(U[,1]< -0.5)] = 0.3
     prob_V[which(U[,1]>= -0.5 & U[,1]< 1)] = 0.5
     prob_V[which(U[,1]>= 1)] = 0.2
@@ -41,7 +41,7 @@ simul_dat_fun = function(case, setting, N, p, alpha, beta, r, lambda, rho, c0){
   
   # follow-up times and event indicators
   Tlat = rweibull(N, shape=rho, scale=lambda_prime)
-  C = rexp(n=N, rate=c0)
+  C = rexp(n=n, rate=c0)
   time = pmin(Tlat, C)
   status = as.numeric(Tlat <= C)
   
@@ -52,14 +52,14 @@ simul_dat_fun = function(case, setting, N, p, alpha, beta, r, lambda, rho, c0){
     
   }else if(setting==2){
     
-    prob_missing = rep(NA, N)
+    prob_missing = rep(NA, n)
     prob_missing[which(U[,1]> qnorm(r/3))]  = (1-r)/pnorm(-qnorm(r/3))
     prob_missing[which(U[,1]<= qnorm(r/3))] = 0
     missing_mask = which(runif(N) < prob_missing)
     
   }else if(setting==3){
     
-    prob_missing = rep(NA, N)
+    prob_missing = rep(NA, n)
     prob_missing[which(U[,1]> qnorm(r/3))]  = 
       (1-as.numeric(V[which(U[,1]> qnorm(r/3))] <= 0)*0.1-r)/pnorm(-qnorm(r/3)) + 
       as.numeric(V[which(U[,1]> qnorm(r/3))] <= 0)*0.1
