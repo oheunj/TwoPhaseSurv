@@ -1,4 +1,4 @@
-evalRun = function(nIter, param){
+evalRun_fun = function(nIter, param){
   # to disable in-function printed message for smcfcs
   quiet = function(x) { 
     sink(tempfile()) 
