@@ -1,6 +1,6 @@
 # Leveraging Two-Phase Data for Improved Prediction of Survival Outcomes with Application to Nasopharyngeal Cancer
 The full manuscript is available below:
-* __Oh, E. J.,__ Ahn, S., Tham, T., and Qian, M. (2025+). Leveraging two-phase data for improved prediction of survival outcomes with application to nasopharyngeal cancer. _Biometrics_. Accepted. [[preprint]](https://arxiv.org/pdf/2503.16732)
+* __Oh, E. J.,__ Ahn, S., Tham, T., and Qian, M. (2025). Leveraging two-phase data for improved prediction of survival outcomes with application to nasopharyngeal cancer. _Biometrics_, 81(2), ujaf080. [[link]](https://academic.oup.com/biometrics/article/doi/10.1093/biomtc/ujaf080/8174609?utm_source=authortollfreelink&utm_campaign=biometrics&utm_medium=email&guestAccessKey=3eeab5b5-3196-45c2-a2dc-26cd057f53c8) [[supp]](https://oheunj.github.io/files/BIOM_SuppMaterials_TwoPhaseSurv.pdf)
 
 # Files in this repository
 The source code is currently provided in 'tpsurv_main_code.R'
